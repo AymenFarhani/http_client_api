@@ -12,20 +12,21 @@ public class SyncExample {
 
     public static void run() throws IOException, InterruptedException {
         System.out.println("------Synchronous Example------");
-
+         //Build the HTTPClient using Builder
         HttpClient client = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .connectTimeout(Duration.ofSeconds(10))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
 
-        // Simple Get
-        HttpRequest request = HttpRequest.newBuilder()
+        // Create a Simple Get Request
+        HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(URI.create("https://httpbin.org/get"))
                 .GET()
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //Send the request and Retrieve the response
+        HttpResponse<String> response = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
 
         System.out.println("GET status: " + response.statusCode());
         System.out.println("GET body: " + response.body());
@@ -35,12 +36,13 @@ public class SyncExample {
             { "name": "Alice", "role": "developer" }
             """;
 
+        //Create a simple POST request
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("https://httpbin.org/post"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
-
+        //Send the request and get the response
         HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
         System.out.println("POST Status: " + postResponse.statusCode());
         System.out.println("POST Body: " + postResponse.body());

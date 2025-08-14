@@ -13,8 +13,9 @@ public class FileExample {
         HttpRequest download = HttpRequest.newBuilder()
                 .uri(URI.create("https://httpbin.org/image/png"))
                 .build();
-
+        //defined the path
         Path target = Paths.get("downloaded.png");
+        //Send the request
         client.send(download, HttpResponse.BodyHandlers.ofFile(target));
         System.out.println("Downloaded file to: " + target.toAbsolutePath());
 

@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.util.concurrent.*;
 
 public class AsyncExample {
-    public static void run() throws Exception {
+    public static void run(){
         System.out.println("\n--- Async Examples ---");
 
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor(); // Java 21 virtual threads

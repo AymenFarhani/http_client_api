@@ -13,16 +13,16 @@ public class AuthExample {
 
         // Basic Auth manually (without Authenticator)
         String auth = Base64.getEncoder().encodeToString("user:pass".getBytes());
-
+        //create the client
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
                 .build();
-
+        //create the request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://httpbin.org/basic-auth/user/pass"))
                 .header("Authorization", "Basic " + auth)
                 .build();
-
+        //invoke the request and retrieve the response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println("Auth status: " + response.statusCode());
         System.out.println("Auth body: " + response.body());

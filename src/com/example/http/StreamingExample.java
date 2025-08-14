@@ -11,15 +11,18 @@ public class StreamingExample {
     public static void run() throws Exception {
         System.out.println("\n--- Streaming Examples ---");
 
+        //create the client
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
 
+        //create the request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://www.w3.org/TR/PNG/iso_8859-1.txt"))
                 .GET()
                 .build();
 
+        //send the request and retrieve the response
         HttpResponse<Stream<String>> response = client.send(
                 request, HttpResponse.BodyHandlers.ofLines());
 
